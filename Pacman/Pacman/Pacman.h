@@ -28,8 +28,9 @@ struct Player
 	int direction;
 	int frame;
 	Rect* sourceRect;
-	Texture2D* tecture;
+	Texture2D* texture;
 	Vector2* position;
+	
 };
 
 struct Munchie
@@ -43,21 +44,24 @@ class Pacman : public Game
 {
 private:
 
+	//Input methods
+	void Input(int elapsedTime, Input::KeyboardState* state);
 
+	//Check methods
+	void CheckPaused(Input::KeyboardState* state, Input::Keys pauseKey);
+	void CheckViewportCollision();
 
+	//Update methods
+	void UpdatePacman(int elapsedTime);
+	void UpdateMunchie(int elapsedTime);
 
 
 
 	// Data to represent Pacman
-	Vector2* _pacmanPosition;
-	Rect* _pacmanSourceRect;
-	Texture2D* _pacmanTexture;
-	int _pacmanDirection;
-	int _pacmanFrame;
-	int _pacmanCurrentFrameTime;
+	Player* _pacman;
 
 	// Data to represent Munchie
-	int _munchieFrameCount;
+	int _munchieFrameCount = 0;
 	Rect* _munchieRect;
 	Texture2D* _munchieBlueTexture;
 	Texture2D* _munchieInvertedTexture;
@@ -73,7 +77,7 @@ private:
 	const int _cMunchieFrameTime;
 
 	// Data for Menu
-	Texture2D* _menuBackground;
+	Texture2D* _menuBackground = new Texture2D();
 	Rect* _menuRectangle;
 	Vector2* _menuStringPosition;
 	bool _paused;
@@ -99,4 +103,6 @@ public:
 
 	/// <summary> Called every frame - draw game here. </summary>
 	void virtual Draw(int elapsedTime);
+
+
 };
